@@ -1,0 +1,56 @@
+import os, re, sys
+
+print(''' 
+----------------------------------------
+----|  T               |----------------
+----|  |-> R           |----------------
+----|      |-> E       |----------------
+----|      |-> E       |----------------
+----|                  |----------------
+----|  (Folder Tree)   |----------------
+----|                  |----------------
+----------------------------------------  
+''')
+
+# take input
+print('# Enter directory link: (example- C:\\myFile)')
+dirLink = str(input()) 
+
+# validate the input
+dirNameRx = re.compile(r'[a-zA-Z0-9]')
+try:
+    if dirNameRx.search(dirLink) != '':
+        print('[+] Now searching for:'+ dirLink+'\n')
+except:
+    print(' Invalid input')
+
+#design
+print(''' 
+-------------
+| Searching |
+-------------
+''')
+
+# make a list of file
+listNum = os.listdir(dirLink)
+
+# result of folder tree
+for folderName, subFolders, fileNames in os.walk(dirLink):
+    print('\n[+] Folder name: '+folderName)
+    
+    for subfolder in subFolders:
+        print('\t\tSubfolder ('+ folderName +') :\n\t\t\t|->'+subfolder)
+    for fileName in fileNames:
+        print('\t\t\t\tFile :\n\t\t\t\t\t|->'+ fileName)
+    print('\n.....................')
+    
+# termination
+while True:
+    print('___________________________')
+    print('Type \'exit\' to stop')
+    response = input()
+    if response == 'exit':
+        sys.exit()
+    
+    
+    
